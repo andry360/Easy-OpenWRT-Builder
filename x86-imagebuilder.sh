@@ -10,7 +10,7 @@
 
 # Basic example recipe, change to suit.
 CUSTOM_PACKAGES="blockd block-mount kmod-fs-ext4 kmod-fs-ntfs3 kmod-usb2 kmod-usb3 kmod-usb-storage kmod-usb-core \
-    luci luci-app-ddns luci-app-samba4 luci-app-sqm sqm-scripts curl nano"
+    luci luci-app-ddns luci-app-samba4 luci-app-sqm sqm-scripts curl nano nmap"
 
 #######################################################################################################################
 
