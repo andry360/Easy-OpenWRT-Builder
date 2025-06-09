@@ -66,7 +66,7 @@ setup_git() {
         else
             print_error "Installazione di Git fallita!"
             print_warning "Dovrai clonare manualmente il repository dopo aver configurato l'ambiente"
-            print_warning "Comando: git clone https://github.com/itiligent/Easy-OpenWRT-Builder.git"
+            print_warning "Comando: git clone https://github.com/andry360/Easy-OpenWRT-Builder.git"
             return 1
         fi
     else
