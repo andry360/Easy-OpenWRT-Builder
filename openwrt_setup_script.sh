@@ -231,12 +231,12 @@ clone_repository() {
         print_error "Git non è disponibile. Clonazione del repository saltata"
         print_info "Clona manualmente il repository con:"
         print_info "cd \"$PROJECT_DIR\""
-        print_info "git clone https://github.com/itiligent/Easy-OpenWRT-Builder.git ."
+        print_info "git clone https://github.com/andry360/Easy-OpenWRT-Builder.git ."
         return 1
     fi
     
     print_info "Clonazione in corso in: $PROJECT_DIR"
-    if git clone https://github.com/itiligent/Easy-OpenWRT-Builder.git "$PROJECT_DIR/Easy-OpenWRT-Builder"; then
+    if git clone https://github.com/andry360/Easy-OpenWRT-Builder.git "$PROJECT_DIR/Easy-OpenWRT-Builder"; then
         print_success "Repository clonato con successo"
         
         # Sposta i file dalla sottocartella alla cartella principale
@@ -339,7 +339,7 @@ main() {
     else
         print_warning "Git non disponibile. Clona manualmente il repository:"
         print_info "cd \"$PROJECT_DIR\""
-        print_info "git clone https://github.com/itiligent/Easy-OpenWRT-Builder.git ."
+        print_info "git clone https://github.com/andry360/Easy-OpenWRT-Builder.git ."
     fi
     
     # Step 6: Permessi (solo se il file esiste)
