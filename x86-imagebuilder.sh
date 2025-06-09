@@ -10,7 +10,7 @@
 
 # Basic example recipe, change to suit.
 CUSTOM_PACKAGES="blockd block-mount kmod-fs-ext4 kmod-fs-ntfs3 kmod-usb2 kmod-usb3 kmod-usb-storage kmod-usb-core \
-    luci luci-app-ddns luci-app-samba4 luci-app-sqm sqm-scripts curl nano"
+    luci luci-app-ddns luci-app-samba4 luci-app-sqm sqm-scripts curl wget nano file tcpdump iftop iperf3 lsblk ip-full tcpdump git git-http ethtool"
 
 #######################################################################################################################
 
@@ -21,6 +21,13 @@ CYAN='\033[0;36m'
 LRED='\033[0;91m'
 LYELLOW='\033[0;93m'
 NC='\033[0m' # No Colour
+
+# Check if running in WSL
+IS_WSL=false
+if grep -q Microsoft /proc/version || grep -q microsoft /proc/version || grep -q WSL /proc/version; then
+    IS_WSL=true
+    echo -e "${CYAN}Detected Windows Subsystem for Linux (WSL) environment${NC}"
+fi
 
 # Make sure the user is NOT running this script as root
 if [[ $EUID -eq 0 ]]; then
@@ -66,14 +73,14 @@ clear
 # Initialise script prompt variables - do not edit unless expert
 #######################################################################################################################
 
-    VERSION=""               # "" = snapshot or enter specific version
-    MOD_PARTSIZE=""          # true/false
-    KERNEL_PARTSIZE=""       # variable set in MB
-    ROOT_PARTSIZE=""         # variable set in MB (values over 8192 may give memory exhaustion errors)
+    VERSION="24.10.1"               # "" = snapshot or enter specific version
+    MOD_PARTSIZE="true"          # true/false
+    KERNEL_PARTSIZE="16"       # variable set in MB
+    ROOT_PARTSIZE="512"         # variable set in MB (values over 8192 may give memory exhaustion errors)
     KERNEL_RESIZE_DEF="16"   # OWRT default is 16 MB - don't change this without a specific reason.
     ROOT_RESIZE_DEF="104"    # OWRT default is 104 MB. 1024 is the max if you want to use sysupgrade. Don't go above 8192.
     IMAGE_TAG=""             # ID tag is added to the completed image filename to uniquely identify the built image(s)
-    CREATE_VM=""             # Create VMware images of the final build true/false
+    CREATE_VM="true"             # Create VMware images of the final build true/false
     RELEASE_URL="https://downloads.openwrt.org/releases/" # Where to obtain latest stable version number
 
 # Lookup the latest release version, and prompt for desired OWRT build version 
@@ -252,11 +259,21 @@ fi
 rm -rf "${BUILD_ROOT}"
 rm -rf "${SOURCE_DIR}"
 
-# Create the destination directories
-mkdir -p "${BUILD_ROOT}"
-mkdir -p "${OUTPUT}"
-mkdir -p "${INJECT_FILES}"
-if [[ ${CREATE_VM} = true ]] && [[ ${IMAGE_PROFILE} = "generic" ]]; then mkdir -p "${VMDIR}" ; fi
+# Create the destination directories - use sudo if in WSL
+if [[ "$IS_WSL" = true ]]; then
+    sudo mkdir -p "${BUILD_ROOT}"
+    sudo mkdir -p "${OUTPUT}"
+    sudo mkdir -p "${INJECT_FILES}"
+    if [[ ${CREATE_VM} = true ]] && [[ ${IMAGE_PROFILE} = "generic" ]]; then sudo mkdir -p "${VMDIR}" ; fi
+    # Ensure ownership
+    sudo chown -R $USER:$USER "${BUILD_ROOT}" "${OUTPUT}" "${INJECT_FILES}"
+    [[ ${CREATE_VM} = true ]] && [[ ${IMAGE_PROFILE} = "generic" ]] && sudo chown -R $USER:$USER "${VMDIR}"
+else
+    mkdir -p "${BUILD_ROOT}"
+    mkdir -p "${OUTPUT}"
+    mkdir -p "${INJECT_FILES}"
+    if [[ ${CREATE_VM} = true ]] && [[ ${IMAGE_PROFILE} = "generic" ]]; then mkdir -p "${VMDIR}" ; fi
+fi
 
 # Option to pre-configure images with injected config files
 echo -e "${LYELLOW}"
@@ -321,4 +338,3 @@ if [[ ${CREATE_VM} = true ]]; then
     # Optionally remove all extracted raw source images from $VMDIR
     rm -f $VMDIR/*.img
 fi
-
