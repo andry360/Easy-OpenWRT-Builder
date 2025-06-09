@@ -3,7 +3,7 @@
 # Script per l'automazione della configurazione di Debian WSL2 per Easy-OpenWRT-Builder
 # Versione: 1.0
 # Compatibile con: WSL2 Debian su Windows 11 Pro 24H2
-
+# Il comando per lanciare questo script da github è: bash -c "$(wget -qLO - https://raw.githubusercontent.com/andry360/Easy-OpenWRT-Builder/refs/heads/main/openwrt_setup_script.sh)"
 set -e
 
 # Colori per output
