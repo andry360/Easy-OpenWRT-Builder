@@ -8,9 +8,9 @@
 # CUSTOM PACKAGES [ADD YOUR CUSTOM PACKAGE RECIPE HERE]
 #######################################################################################################################
 
-# Basic example recipe, change to suit. Facoltativi: wget nano file tcpdump iftop iperf3 lsblk ip-full tcpdump git git-http ethtool
+# Basic example recipe, change to suit. Facoltativi: wget lsblk git git-http
 CUSTOM_PACKAGES="blockd block-mount kmod-fs-ext4 kmod-fs-ntfs3 kmod-usb2 kmod-usb3 kmod-usb-storage kmod-usb-core \
-    luci luci-app-ddns luci-app-samba4 luci-app-sqm sqm-scripts nano curl"
+    luci luci-app-ddns luci-app-samba4 luci-app-sqm sqm-scripts curl nano tcpdump ethtool iftop iperf3 ip-full"
 
 #######################################################################################################################
 
