@@ -1,3 +1,8 @@
+# FORK informations
+
+I added a setup script that helps in configuring WSL in windows.
+It also clone this repository in the directory where you are at and gives the right permissions for execution
+
 # 🚀 Custom OpenWRT Image Build & VM Conversion Script
 
 ## A repeatable approach to custom OpenWRT image creation:

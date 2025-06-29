@@ -170,9 +170,9 @@ setup_project_folder() {
     export PROJECT_DIR
 }
 
-# Funzione per configurare la sensibilità al caso
+# Funzione per configurare percorsi case sensitive
 configure_case_sensitivity() {
-    print_step "Configurazione della sensibilità al caso per la cartella del progetto..."
+    print_step "Configurazione case sensitive per la cartella del progetto..."
     
     if [[ -z "$PROJECT_DIR" ]]; then
         if [[ -f /tmp/openwrt_project_path ]]; then
